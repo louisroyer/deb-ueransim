@@ -1,0 +1,137 @@
+From: Louis Royer <55180044+louisroyer@users.noreply.github.com>
+Date: Tue, 15 Feb 2022 17:56:38 +0100
+Subject: fix includes
+
+---
+ src/gnb.cpp                | 2 +-
+ src/lib/crypt/eea2.cpp     | 4 ++--
+ src/lib/crypt/mac.cpp      | 4 ++--
+ src/lib/crypt/milenage.cpp | 4 ++--
+ src/ue.cpp                 | 2 +-
+ src/utils/logger.cpp       | 4 ++--
+ src/utils/logger.hpp       | 2 +-
+ src/utils/yaml_utils.cpp   | 2 +-
+ 8 files changed, 12 insertions(+), 12 deletions(-)
+
+diff --git a/src/gnb.cpp b/src/gnb.cpp
+index cf8472c..5ea9e6c 100644
+--- a/src/gnb.cpp
++++ b/src/gnb.cpp
+@@ -21,7 +21,7 @@
+ #include <utils/io.hpp>
+ #include <utils/options.hpp>
+ #include <utils/yaml_utils.hpp>
+-#include <yaml-cpp/yaml.h>
++#include <ext/yaml-cpp/yaml.h>
+ 
+ static app::CliServer *g_cliServer = nullptr;
+ static nr::gnb::GnbConfig *g_refConfig = nullptr;
+diff --git a/src/lib/crypt/eea2.cpp b/src/lib/crypt/eea2.cpp
+index 6e5892b..db44317 100644
+--- a/src/lib/crypt/eea2.cpp
++++ b/src/lib/crypt/eea2.cpp
+@@ -8,7 +8,7 @@
+ 
+ #include "eea2.hpp"
+ 
+-#include <crypt-ext/aes.hpp>
++#include <ext/crypt-ext/aes.hpp>
+ #include <utils/bit_buffer.hpp>
+ #include <utils/octet_string.hpp>
+ 
+@@ -45,4 +45,4 @@ void Decrypt(uint32_t count, int bearer, int direction, OctetString &message, co
+     Cipher(key.data(), iv, message.data(), message.length());
+ }
+ 
+-} // namespace crypto::eea2
+\ No newline at end of file
++} // namespace crypto::eea2
+diff --git a/src/lib/crypt/mac.cpp b/src/lib/crypt/mac.cpp
+index a6762d7..2140dbf 100644
+--- a/src/lib/crypt/mac.cpp
++++ b/src/lib/crypt/mac.cpp
+@@ -8,8 +8,8 @@
+ 
+ #include "mac.hpp"
+ 
+-#include <crypt-ext/cmac.hpp>
+-#include <crypt-ext/hmac-sha256.h>
++#include <ext/crypt-ext/cmac.hpp>
++#include <ext/crypt-ext/hmac-sha256.h>
+ 
+ namespace crypto
+ {
+diff --git a/src/lib/crypt/milenage.cpp b/src/lib/crypt/milenage.cpp
+index ce29766..41add6e 100644
+--- a/src/lib/crypt/milenage.cpp
++++ b/src/lib/crypt/milenage.cpp
+@@ -8,7 +8,7 @@
+ 
+ #include "milenage.hpp"
+ 
+-#include <crypt-ext/milenage.hpp>
++#include <ext/crypt-ext/milenage.hpp>
+ #include <stdexcept>
+ 
+ namespace crypto::milenage
+@@ -43,4 +43,4 @@ OctetString CalculateOpC(const OctetString &op, const OctetString &key)
+     return opc;
+ }
+ 
+-} // namespace crypto::milenage
+\ No newline at end of file
++} // namespace crypto::milenage
+diff --git a/src/ue.cpp b/src/ue.cpp
+index 650771e..c459fdd 100644
+--- a/src/ue.cpp
++++ b/src/ue.cpp
+@@ -22,7 +22,7 @@
+ #include <utils/constants.hpp>
+ #include <utils/options.hpp>
+ #include <utils/yaml_utils.hpp>
+-#include <yaml-cpp/yaml.h>
++#include <ext/yaml-cpp/yaml.h>
+ 
+ static app::CliServer *g_cliServer = nullptr;
+ static nr::ue::UeConfig *g_refConfig = nullptr;
+diff --git a/src/utils/logger.cpp b/src/utils/logger.cpp
+index 381d97d..c66fd73 100644
+--- a/src/utils/logger.cpp
++++ b/src/utils/logger.cpp
+@@ -10,8 +10,8 @@
+ 
+ #include <vector>
+ 
+-#include <spdlog/sinks/basic_file_sink.h>
+-#include <spdlog/sinks/stdout_color_sinks.h>
++#include <ext/spdlog/sinks/basic_file_sink.h>
++#include <ext/spdlog/sinks/stdout_color_sinks.h>
+ 
+ Logger::Logger(const std::string &name, const std::vector<std::shared_ptr<spdlog::sinks::sink>> &sinks)
+ {
+diff --git a/src/utils/logger.hpp b/src/utils/logger.hpp
+index 09be9ad..166e561 100644
+--- a/src/utils/logger.hpp
++++ b/src/utils/logger.hpp
+@@ -13,7 +13,7 @@
+ #include <memory>
+ #include <vector>
+ 
+-#include <spdlog/fwd.h>
++#include <ext/spdlog/fwd.h>
+ 
+ enum class Severity
+ {
+diff --git a/src/utils/yaml_utils.cpp b/src/utils/yaml_utils.cpp
+index 860e9cc..3168d88 100644
+--- a/src/utils/yaml_utils.cpp
++++ b/src/utils/yaml_utils.cpp
+@@ -13,7 +13,7 @@
+ #include <cctype>
+ #include <stdexcept>
+ 
+-#include <yaml-cpp/yaml.h>
++#include <ext/yaml-cpp/yaml.h>
+ 
+ namespace yaml
+ {
