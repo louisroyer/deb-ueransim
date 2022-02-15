@@ -12,7 +12,4 @@ DEB_HOST_MULTIARCH ?= $(shell dpkg-architecture -qDEB_HOST_MULTIARCH)
 override_dh_auto_configure:
 	dh_auto_configure -- \
 	-DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH) \
-	-DCMAKE_BUILD_TYPE=Release \
-	-B cmake-build-release
-ovverride_dh_auto_build:
-	dh_auto_build cmake-build-release --target all
+	-DCMAKE_BUILD_TYPE=Release

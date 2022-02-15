@@ -1,0 +1,33 @@
+From: Louis Royer <55180044+louisroyer@users.noreply.github.com>
+Date: Tue, 15 Feb 2022 17:23:08 +0100
+Subject: cleanup cmakelist
+
+---
+ CMakeLists.txt | 7 -------
+ 1 file changed, 7 deletions(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 08ec1fd..8bf2902 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -9,8 +9,6 @@ include_directories(src)
+ #################### SUB DIRECTORIES ####################
+ 
+ add_subdirectory(src/ext)
+-add_subdirectory(src/utils)
+-add_subdirectory(src/asn/asn1c)
+ add_subdirectory(src/asn/rrc)
+ add_subdirectory(src/asn/ngap)
+ add_subdirectory(src/lib)
+@@ -39,11 +37,6 @@ target_compile_options(nr-ue PRIVATE -Wall -Wextra -pedantic)
+ target_link_libraries(nr-ue common-lib)
+ target_link_libraries(nr-ue ue)
+ 
+-###################### IF BINDER ######################
+-add_library(devbnd SHARED src/binder.cpp)
+-target_compile_options(devbnd PRIVATE -D_GNU_SOURCE -Wall -Wextra)
+-target_link_options(devbnd PRIVATE -nostartfiles)
+-target_link_libraries(devbnd dl)
+ 
+ #################### CLI EXECUTABLE ####################
+ add_executable(nr-cli src/cli.cpp)
