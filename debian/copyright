@@ -2,7 +2,7 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: ueransim
 Upstream-Contact: <preferred name and address to reach the upstream project>
 Source: https://github.com/aligungr/UERANSIM
-Files-Excluded: .github config .clang-format makefile tools/nr-binder tools/rls-wireshark-dissector.lua src/asn/asn1c
+Files-Excluded: .github config .clang-format makefile tools/nr-binder tools/rls-wireshark-dissector.lua 
 Comment: Generated code, deployment files, and third party tools
 # TODO: src/asn should be removed completely and build using tools/*.asn1
 # but this required asn1c 0.9.29 (currently 0.9.28 is packaged)
@@ -52,6 +52,33 @@ Files: src/ext/yaml-cpp/*
 Comment: TODO: replace by libyaml-cpp-dev ?
 Copyright: © 2008-2015 Jesse Beder <jbeder@gmail.com>
 License: X11
+
+Files: src/asn/asn1c
+Copyright: © 2003-2014 Lev Walkin <vlm@lionet.info>
+License: BSD-2-Clause
+
+License: BSD-2-Clause
+  Redistribution and use in source and binary forms, with or without
+  modification, are permitted provided that the following conditions
+  are met:
+  .
+  1. Redistributions of source code must retain the above copyright
+     notice, this list of conditions and the following disclaimer.
+  2. Redistributions in binary form must reproduce the above copyright
+     notice, this list of conditions and the following disclaimer in the
+     documentation and/or other materials provided with the distribution.
+     .
+     THIS SOFTWARE IS PROVIDED BY AUTHORS AND CONTRIBUTORS ``AS IS'' AND
+     ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+     IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+     ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHORS OR CONTRIBUTORS BE LIABLE
+     FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+     DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+     OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+     HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+     LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+     OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+     SUCH DAMAGE.
 
 License: X11
   Permission is hereby granted, free of charge, to any person obtaining a copy
