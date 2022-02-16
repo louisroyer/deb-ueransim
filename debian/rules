@@ -13,11 +13,3 @@ override_dh_auto_configure:
 	dh_auto_configure -- \
 	-DCMAKE_LIBRARY_PATH=$(DEB_HOST_MULTIARCH) \
 	-DCMAKE_BUILD_TYPE=Release
-
-override_dh_auto_install:
-	pwd
-	ls -l obj-x86_64-linux-gnu
-	install -D obj-x86_64-linux-gnu/nr-cli debian/ueransim/usr/bin/nr-cli
-	install -D obj-x86_64-linux-gnu/nr-ue debian/ueransim/usr/bin/nr-ue
-	install -D obj-x86_64-linux-gnu/nr-gnb debian/ueransim/usr/bin/nr-gnb
-	
