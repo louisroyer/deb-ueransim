@@ -1,0 +1,104 @@
+From: Louis Royer <55180044+louisroyer@users.noreply.github.com>
+Date: Tue, 15 Feb 2022 19:06:36 +0100
+Subject: Fix silented format-security warning
+
+---
+ src/utils/CMakeLists.txt |  2 +-
+ src/utils/logger.hpp     | 26 +++++++++++++-------------
+ 2 files changed, 14 insertions(+), 14 deletions(-)
+
+diff --git a/src/utils/CMakeLists.txt b/src/utils/CMakeLists.txt
+index 3f34ec8..8ed3b14 100644
+--- a/src/utils/CMakeLists.txt
++++ b/src/utils/CMakeLists.txt
+@@ -6,6 +6,6 @@ file(GLOB_RECURSE SRC_FILES *.cpp)
+ add_library(utils ${HDR_FILES} ${SRC_FILES})
+ 
+ target_compile_options(utils PRIVATE -Wall -Wextra -pedantic -Wno-unused-parameter)
+-target_compile_options(utils PUBLIC -Wno-format-security)
++target_compile_options(utils PUBLIC -Wformat-security)
+ 
+ target_link_libraries(utils ext)
+diff --git a/src/utils/logger.hpp b/src/utils/logger.hpp
+index 166e561..f29fd38 100644
+--- a/src/utils/logger.hpp
++++ b/src/utils/logger.hpp
+@@ -40,65 +40,65 @@ class Logger
+     template <typename... Args>
+     inline void debug(const std::string &fmt, Args &&...args)
+     {
+-        log(Severity::DEBUG, fmt, args...);
++        log(Severity::DEBUG, fmt.c_str(), args...);
+     }
+ 
+     inline void debug(const std::string &fmt)
+     {
+-        log(Severity::DEBUG, fmt);
++        log(Severity::DEBUG, "%s", fmt.c_str());
+     }
+ 
+     template <typename... Args>
+     inline void info(const std::string &fmt, Args &&...args)
+     {
+-        log(Severity::INFO, fmt, args...);
++        log(Severity::INFO, fmt.c_str(), args...);
+     }
+ 
+     inline void info(const std::string &fmt)
+     {
+-        log(Severity::INFO, fmt);
++        log(Severity::INFO, "%s", fmt.c_str());
+     }
+ 
+     template <typename... Args>
+     inline void warn(const std::string &fmt, Args &&...args)
+     {
+-        log(Severity::WARN, fmt, args...);
++        log(Severity::WARN, fmt.c_str(), args...);
+     }
+ 
+     inline void warn(const std::string &fmt)
+     {
+-        log(Severity::WARN, fmt);
++        log(Severity::WARN, "%s", fmt.c_str());
+     }
+ 
+     template <typename... Args>
+     inline void err(const std::string &fmt, Args &&...args)
+     {
+-        log(Severity::ERR, fmt, args...);
++        log(Severity::ERR, fmt.c_str(), args...);
+     }
+ 
+     inline void err(const std::string &fmt)
+     {
+-        log(Severity::ERR, fmt);
++        log(Severity::ERR, "%s", fmt.c_str());
+     }
+ 
+     template <typename... Args>
+     inline void fatal(const std::string &fmt, Args &&...args)
+     {
+-        log(Severity::FATAL, fmt, args...);
++        log(Severity::FATAL, fmt.c_str(), args...);
+     }
+ 
+     inline void fatal(const std::string &fmt)
+     {
+-        log(Severity::FATAL, fmt);
++        log(Severity::FATAL, "%s", fmt.c_str());
+     }
+ 
+     template <typename... Args>
+-    inline void log(Severity severity, const std::string &fmt, Args &&...args)
++    inline void log(Severity severity, const char * fmt, Args &&...args)
+     {
+-        int size = snprintf(nullptr, 0, fmt.c_str(), args...);
++        int size = snprintf(nullptr, 0, fmt, args...);
+         std::string res;
+         res.resize(size);
+-        snprintf(&res[0], size + 1, fmt.c_str(), args...);
++        snprintf(&res[0], size + 1, fmt, args...);
+         logImpl(severity, res);
+     }
+ 
