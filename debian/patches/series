@@ -1,3 +1,4 @@
 0001-cleanup-cmakelist.patch
 0002-fix-includes.patch
 0003-Fix-silented-format-security-warning.patch
+0004-Use-spdlog-from-debian.patch
