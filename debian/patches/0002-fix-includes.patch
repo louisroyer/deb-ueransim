@@ -8,10 +8,8 @@ Subject: fix includes
  src/lib/crypt/mac.cpp      | 4 ++--
  src/lib/crypt/milenage.cpp | 4 ++--
  src/ue.cpp                 | 2 +-
- src/utils/logger.cpp       | 4 ++--
- src/utils/logger.hpp       | 2 +-
  src/utils/yaml_utils.cpp   | 2 +-
- 8 files changed, 12 insertions(+), 12 deletions(-)
+ 6 files changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/src/gnb.cpp b/src/gnb.cpp
 index cf8472c..5ea9e6c 100644
@@ -94,34 +92,6 @@ index 650771e..c459fdd 100644
  
  static app::CliServer *g_cliServer = nullptr;
  static nr::ue::UeConfig *g_refConfig = nullptr;
-diff --git a/src/utils/logger.cpp b/src/utils/logger.cpp
-index 381d97d..c66fd73 100644
---- a/src/utils/logger.cpp
-+++ b/src/utils/logger.cpp
-@@ -10,8 +10,8 @@
- 
- #include <vector>
- 
--#include <spdlog/sinks/basic_file_sink.h>
--#include <spdlog/sinks/stdout_color_sinks.h>
-+#include <ext/spdlog/sinks/basic_file_sink.h>
-+#include <ext/spdlog/sinks/stdout_color_sinks.h>
- 
- Logger::Logger(const std::string &name, const std::vector<std::shared_ptr<spdlog::sinks::sink>> &sinks)
- {
-diff --git a/src/utils/logger.hpp b/src/utils/logger.hpp
-index 09be9ad..166e561 100644
---- a/src/utils/logger.hpp
-+++ b/src/utils/logger.hpp
-@@ -13,7 +13,7 @@
- #include <memory>
- #include <vector>
- 
--#include <spdlog/fwd.h>
-+#include <ext/spdlog/fwd.h>
- 
- enum class Severity
- {
 diff --git a/src/utils/yaml_utils.cpp b/src/utils/yaml_utils.cpp
 index 860e9cc..3168d88 100644
 --- a/src/utils/yaml_utils.cpp

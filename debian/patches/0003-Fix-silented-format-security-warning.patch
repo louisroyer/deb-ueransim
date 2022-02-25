@@ -20,7 +20,7 @@ index 3f34ec8..8ed3b14 100644
  
  target_link_libraries(utils ext)
 diff --git a/src/utils/logger.hpp b/src/utils/logger.hpp
-index 166e561..f29fd38 100644
+index 09be9ad..8582a6d 100644
 --- a/src/utils/logger.hpp
 +++ b/src/utils/logger.hpp
 @@ -40,65 +40,65 @@ class Logger
