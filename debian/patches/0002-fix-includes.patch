@@ -1,6 +1,6 @@
 From: Louis Royer <55180044+louisroyer@users.noreply.github.com>
 Date: Tue, 15 Feb 2022 17:56:38 +0100
-Subject: fix includes
+Subject: Fix includes
 
 ---
  src/lib/crypt/eea2.cpp     | 4 ++--

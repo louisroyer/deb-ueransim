@@ -1,5 +1,5 @@
-0001-cleanup-cmakelist.patch
+0001-cleanup-cmakelists.patch
 0002-fix-includes.patch
-0003-Fix-silented-format-security-warning.patch
-0004-Use-spdlog-from-debian.patch
-0005-Use-libyaml-cpp-from-debian.patch
+0003-fix-silented-format-security-warning.patch
+0004-use-shared-spdlog.patch
+0005-use-shared-yaml-cpp.patch
