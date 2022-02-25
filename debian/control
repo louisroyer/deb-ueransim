@@ -13,6 +13,8 @@ Rules-Requires-Root: no
 Package: ueransim
 Architecture: any
 Suggests: wireshark-ueransim-rls
-Depends: ${shlibs:Depends}, ${misc:Depends}
+Depends: iproute2,
+         lksctp-tools,
+         ${shlibs:Depends}, ${misc:Depends}
 Description: State-of-the-art 5G UE and RAN (gNodeB) implementation
  This project can be used for testing 5G Core Network and studying 5G System.
