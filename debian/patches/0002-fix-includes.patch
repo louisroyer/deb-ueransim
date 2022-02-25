@@ -3,27 +3,11 @@ Date: Tue, 15 Feb 2022 17:56:38 +0100
 Subject: fix includes
 
 ---
- src/gnb.cpp                | 2 +-
  src/lib/crypt/eea2.cpp     | 4 ++--
  src/lib/crypt/mac.cpp      | 4 ++--
  src/lib/crypt/milenage.cpp | 4 ++--
- src/ue.cpp                 | 2 +-
- src/utils/yaml_utils.cpp   | 2 +-
- 6 files changed, 9 insertions(+), 9 deletions(-)
+ 3 files changed, 6 insertions(+), 6 deletions(-)
 
-diff --git a/src/gnb.cpp b/src/gnb.cpp
-index cf8472c..5ea9e6c 100644
---- a/src/gnb.cpp
-+++ b/src/gnb.cpp
-@@ -21,7 +21,7 @@
- #include <utils/io.hpp>
- #include <utils/options.hpp>
- #include <utils/yaml_utils.hpp>
--#include <yaml-cpp/yaml.h>
-+#include <ext/yaml-cpp/yaml.h>
- 
- static app::CliServer *g_cliServer = nullptr;
- static nr::gnb::GnbConfig *g_refConfig = nullptr;
 diff --git a/src/lib/crypt/eea2.cpp b/src/lib/crypt/eea2.cpp
 index 6e5892b..db44317 100644
 --- a/src/lib/crypt/eea2.cpp
@@ -79,29 +63,3 @@ index ce29766..41add6e 100644
 -} // namespace crypto::milenage
 \ No newline at end of file
 +} // namespace crypto::milenage
-diff --git a/src/ue.cpp b/src/ue.cpp
-index 650771e..c459fdd 100644
---- a/src/ue.cpp
-+++ b/src/ue.cpp
-@@ -22,7 +22,7 @@
- #include <utils/constants.hpp>
- #include <utils/options.hpp>
- #include <utils/yaml_utils.hpp>
--#include <yaml-cpp/yaml.h>
-+#include <ext/yaml-cpp/yaml.h>
- 
- static app::CliServer *g_cliServer = nullptr;
- static nr::ue::UeConfig *g_refConfig = nullptr;
-diff --git a/src/utils/yaml_utils.cpp b/src/utils/yaml_utils.cpp
-index 860e9cc..3168d88 100644
---- a/src/utils/yaml_utils.cpp
-+++ b/src/utils/yaml_utils.cpp
-@@ -13,7 +13,7 @@
- #include <cctype>
- #include <stdexcept>
- 
--#include <yaml-cpp/yaml.h>
-+#include <ext/yaml-cpp/yaml.h>
- 
- namespace yaml
- {

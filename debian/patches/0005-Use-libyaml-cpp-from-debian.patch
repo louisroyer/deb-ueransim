@@ -1,0 +1,19 @@
+From: Louis Royer <55180044+louisroyer@users.noreply.github.com>
+Date: Fri, 25 Feb 2022 22:42:25 +0100
+Subject: Use libyaml-cpp from debian
+
+---
+ src/utils/CMakeLists.txt | 3 +++
+ 1 file changed, 3 insertions(+)
+
+diff --git a/src/utils/CMakeLists.txt b/src/utils/CMakeLists.txt
+index 6b40947..499c051 100644
+--- a/src/utils/CMakeLists.txt
++++ b/src/utils/CMakeLists.txt
+@@ -13,3 +13,6 @@ target_link_libraries(utils ext)
+ # Debian's libspdlog-dev
+ find_package(spdlog CONFIG REQUIRED)
+ target_link_libraries(utils spdlog::spdlog_header_only)
++
++# Debian's libyaml-cpp-dev
++target_link_libraries(utils yaml-cpp)
