@@ -2,7 +2,7 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: ueransim
 Upstream-Contact: <preferred name and address to reach the upstream project>
 Source: https://github.com/aligungr/UERANSIM
-Files-Excluded: .github config .clang-format makefile tools/nr-binder tools/rls-wireshark-dissector.lua 
+Files-Excluded: .github config .clang-format makefile tools/nr-binder tools/rls-wireshark-dissector.lua src/ext/spdlog/*
 Comment: Generated code, deployment files, and third party tools
 # TODO: src/asn should be removed completely and build using tools/*.asn1
 # but this required asn1c 0.9.29 (currently 0.9.28 is packaged)
@@ -37,16 +37,6 @@ License: GPL-2.0+
 Files: src/ext/crypt-ext/sha256.c src/ext/crypt-ext/sha256.h src/ext/crypt-ext/rotate-bits.h
 Copyright: 2010 Igor Pavlov
 License: public-domain
-
-Files: src/ext/spdlog/*
-Copyright: © 2015 Gabi Melman & spdlog contributors
-Comment: TODO: replace by libspdlog-dev ?
-License: Expat
-
-Files: src/ext/spdlog/fmt/bundled/*
-Copyright: © 2012 Victor Zverovich
-Comment: TODO: remove this when adding depends to libspdlog-dev ?
-License: Expat with embedded exception
 
 Files: src/ext/yaml-cpp/*
 Comment: TODO: replace by libyaml-cpp-dev ?
