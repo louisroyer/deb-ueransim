@@ -9,7 +9,7 @@ Build-Depends: cmake,
                libspdlog-dev
 Standards-Version: 4.5.1
 Homepage: https://github.com/aligungr/UERANSIM 
-Vcs-Git: https://github.com/louisroyer/deb-ueransim
+Vcs-Git: https://github.com/louisroyer-deb/ueransim
 Rules-Requires-Root: no
 
 Package: ueransim

@@ -1,4 +1,4 @@
-ueransim (3.2.6+dfsg-3) UNRELEASED; urgency=medium
+ueransim (3.2.6+dfsg-3) bullseye; urgency=medium
 
   * UNOFFICIAL Packaging - Initial release
   * Use debian's libspdlog-dev
