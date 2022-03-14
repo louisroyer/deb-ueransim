@@ -1,6 +1,6 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Name: ueransim
-Upstream-Contact: <preferred name and address to reach the upstream project>
+Upstream-Contact: ALİ GÜNGÖR <aligng1620@gmail.com>
 Source: https://github.com/aligungr/UERANSIM
 Files-Excluded: .github config .clang-format makefile tools/nr-binder tools/rls-wireshark-dissector.lua src/ext/spdlog/* src/ext/yaml-cpp/*
 Comment: Generated code, deployment files, and third party tools
