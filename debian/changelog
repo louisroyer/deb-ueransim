@@ -1,3 +1,9 @@
+ueransim (3.2.6+dfsg-4) bullseye; urgency=medium
+
+  * Patch GTP Echo support
+
+ -- Louis Royer <louis.royer@irit.fr>  Thu, 16 Jun 2022 14:23:44 +0200
+
 ueransim (3.2.6+dfsg-3) bullseye; urgency=medium
 
   * UNOFFICIAL Packaging - Initial release
