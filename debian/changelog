@@ -1,3 +1,8 @@
+ueransim (3.2.6+dfsg-6) bookworm; urgency=medium
+
+  * Bookworm packaging (fix changelog)
+
+ -- Louis Royer <louis.royer@irit.fr>  Sun, 11 Jun 2023 23:56:34 +0200
 ueransim (3.2.6+dfsg-5) bullseye; urgency=medium
 
   * Bookworm packaging
