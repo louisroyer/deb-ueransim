@@ -1,0 +1,20 @@
+From: Louis Royer <infos.louis.royer@gmail.com>
+Date: Sun, 11 Jun 2023 18:26:47 +0200
+Subject: include cstring
+
+---
+ src/utils/common.cpp | 1 +
+ 1 file changed, 1 insertion(+)
+
+diff --git a/src/utils/common.cpp b/src/utils/common.cpp
+index b94dd22..85b20e6 100644
+--- a/src/utils/common.cpp
++++ b/src/utils/common.cpp
+@@ -13,6 +13,7 @@
+ #include <atomic>
+ #include <cctype>
+ #include <chrono>
++#include <cstring>
+ #include <regex>
+ #include <sstream>
+ #include <stdexcept>
