@@ -1,8 +1,9 @@
 ueransim (3.2.6+dfsg-5) bullseye; urgency=medium
 
   * Bookworm packaging
+  * patch 8
 
- -- Louis Royer <louis.royer@irit.fr>  Sun, 11 Jun 2023 18:28:44 +0200
+ -- Louis Royer <louis.royer@irit.fr>  Sun, 11 Jun 2023 18:55:34 +0200
 
 ueransim (3.2.6+dfsg-4) bullseye; urgency=medium
 

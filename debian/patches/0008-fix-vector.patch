@@ -1,0 +1,21 @@
+From: Louis Royer <infos.louis.royer@gmail.com>
+Date: Sun, 11 Jun 2023 18:54:37 +0200
+Subject: fix vector
+
+---
+ src/utils/common.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/src/utils/common.cpp b/src/utils/common.cpp
+index 85b20e6..bade7be 100644
+--- a/src/utils/common.cpp
++++ b/src/utils/common.cpp
+@@ -197,7 +197,7 @@ OctetString utils::IpToOctetString(const std::string &address)
+     }
+     else if (ipVersion == 6)
+     {
+-        std::vector<uint8_t> data{16};
++        std::vector<uint8_t> data(16);
+         if (!IPv6FromString(address.c_str(), data.data()))
+             return {};
+         return OctetString(std::move(data));
