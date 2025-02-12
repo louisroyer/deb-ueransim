@@ -1,9 +1,9 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
+// This file is a part of UERANSIM project.
+// Copyright (c) 2023 ALİ GÜNGÖR.
 //
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
+// https://github.com/aligungr/UERANSIM/
+// See README, LICENSE, and CONTRIBUTING files for licensing details.
 //
 
 #include "task.hpp"
@@ -67,7 +67,7 @@ void UeRrcTask::startConnectionEstablishment(OctetString &&nasPdu)
     {
         m_initialId.present = ASN_RRC_InitialUE_Identity_PR_ng_5G_S_TMSI_Part1;
         asn::SetBitStringLong<39>(static_cast<int64_t>(gutiOrTmsi->tmsi) |
-                                      (static_cast<int64_t>((gutiOrTmsi->amfPointer & 0b1111111)) << 39ull),
+                                      (static_cast<int64_t>(gutiOrTmsi->amfPointer & 0b1111111) << 32ull),
                                   m_initialId.choice.ng_5G_S_TMSI_Part1);
     }
     else

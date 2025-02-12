@@ -1,9 +1,9 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
+// This file is a part of UERANSIM project.
+// Copyright (c) 2023 ALİ GÜNGÖR.
 //
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
+// https://github.com/aligungr/UERANSIM/
+// See README, LICENSE, and CONTRIBUTING files for licensing details.
 //
 
 #include "common_types.hpp"
@@ -38,7 +38,7 @@ int64_t GutiMobileIdentity::toTmsiValue() const
 GutiMobileIdentity GutiMobileIdentity::FromSTmsi(int64_t sTmsi)
 {
     GutiMobileIdentity res;
-    res.tmsi = octet4{static_cast<uint32_t>(sTmsi & 0xFFFFFFLL)};
+    res.tmsi = octet4{static_cast<uint32_t>(sTmsi & 0xFFFFFFFFLL)};
     res.amfPointer = static_cast<int>(((sTmsi >> 32LL) & 0b111111LL));
     res.amfSetId = static_cast<int>(((sTmsi >> 38LL) & 0b1111111111LL));
     return res;
