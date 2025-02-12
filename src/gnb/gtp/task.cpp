@@ -1,9 +1,9 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
+// This file is a part of UERANSIM project.
+// Copyright (c) 2023 ALİ GÜNGÖR.
 //
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
+// https://github.com/aligungr/UERANSIM/
+// See README, LICENSE, and CONTRIBUTING files for licensing details.
 //
 
 #include "task.hpp"
@@ -19,8 +19,8 @@ namespace nr::gnb
 {
 
 GtpTask::GtpTask(TaskBase *base)
-    : m_base{base}, m_udpServer{}, m_ueContexts{},
-      m_rateLimiter(std::make_unique<RateLimiter>()), m_pduSessions{}, m_sessionTree{}
+    : m_base{base}, m_udpServer{}, m_ueContexts{}, m_rateLimiter(std::make_unique<RateLimiter>()), m_pduSessions{},
+      m_sessionTree{}
 {
     m_logger = m_base->logBase->makeUniqueLogger("gtp");
 }
@@ -224,26 +224,43 @@ void GtpTask::handleUdpReceive(const udp::NwUdpServerReceive &msg)
     OctetView buffer{msg.packet};
     auto gtp = gtp::DecodeGtpMessage(buffer);
 
-    auto sessionInd = m_sessionTree.findByDownTeid(gtp->teid);
-    if (sessionInd == 0)
+    switch (gtp->msgType)
     {
-        m_logger->err("TEID %d not found on GTP-U Downlink", gtp->teid);
+    case gtp::GtpMessage::MT_G_PDU: {
+        auto sessionInd = m_sessionTree.findByDownTeid(gtp->teid);
+        if (sessionInd == 0)
+        {
+            m_logger->err("TEID %d not found on GTP-U Downlink", gtp->teid);
+            return;
+        }
+
+        if (m_rateLimiter->allowDownlinkPacket(sessionInd, gtp->payload.length()))
+        {
+            auto w = std::make_unique<NmGnbGtpToRls>(NmGnbGtpToRls::DATA_PDU_DELIVERY);
+            w->ueId = GetUeId(sessionInd);
+            w->psi = GetPsi(sessionInd);
+            w->pdu = std::move(gtp->payload);
+            m_base->rlsTask->push(std::move(w));
+        }
         return;
     }
+    case gtp::GtpMessage::MT_ECHO_REQUEST: {
+        gtp::GtpMessage gtpResponse{};
+        gtpResponse.msgType = gtp::GtpMessage::MT_ECHO_RESPONSE;
+        gtpResponse.seq = gtp->seq;
+        gtpResponse.payload = OctetString::FromOctet2({14, 0});
 
-    if (gtp->msgType != gtp::GtpMessage::MT_G_PDU)
-    {
+        OctetString gtpPdu;
+        if (gtp::EncodeGtpMessage(gtpResponse, gtpPdu))
+            m_udpServer->send(msg.fromAddress, gtpPdu);
+        else
+            m_logger->err("Uplink data failure, GTP encoding failed");
+        return;
+    }
+    default: {
         m_logger->err("Unhandled GTP-U message type: %d", gtp->msgType);
         return;
     }
-
-    if (m_rateLimiter->allowDownlinkPacket(sessionInd, gtp->payload.length()))
-    {
-        auto w = std::make_unique<NmGnbGtpToRls>(NmGnbGtpToRls::DATA_PDU_DELIVERY);
-        w->ueId = GetUeId(sessionInd);
-        w->psi = GetPsi(sessionInd);
-        w->pdu = std::move(gtp->payload);
-        m_base->rlsTask->push(std::move(w));
     }
 }
 

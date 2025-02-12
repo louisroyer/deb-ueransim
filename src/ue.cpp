@@ -1,13 +1,15 @@
 //
-// This file is a part of UERANSIM open source project.
-// Copyright (c) 2021 ALİ GÜNGÖR.
+// This file is a part of UERANSIM project.
+// Copyright (c) 2023 ALİ GÜNGÖR.
 //
-// The software and all associated files are licensed under GPL-3.0
-// and subject to the terms and conditions defined in LICENSE file.
+// https://github.com/aligungr/UERANSIM/
+// See README, LICENSE, and CONTRIBUTING files for licensing details.
 //
 
+#include <chrono>
 #include <iostream>
 #include <stdexcept>
+#include <thread>
 
 #include <unistd.h>
 
@@ -36,6 +38,7 @@ static struct Options
     bool disableCmd{};
     std::string imsi{};
     int count{};
+    int tempo{};
 } g_options{};
 
 struct NwUeControllerCmd : NtsMessage
@@ -106,6 +109,8 @@ static nr::ue::UeConfig *ReadConfigYaml()
     yaml::GetString(config, "mcc", 3, 3);
     result->hplmn.mnc = yaml::GetInt32(config, "mnc", 0, 999);
     result->hplmn.isLongMnc = yaml::GetString(config, "mnc", 2, 3).size() == 3;
+    if (yaml::HasField(config, "routingIndicator"))
+        result->routingIndicator = yaml::GetString(config, "routingIndicator", 1, 4);
 
     for (auto &gnbSearchItem : yaml::GetSequence(config, "gnbSearchList"))
         result->gnbSearchList.push_back(gnbSearchItem.as<std::string>());
@@ -145,10 +150,20 @@ static nr::ue::UeConfig *ReadConfigYaml()
 
     if (yaml::HasField(config, "supi"))
         result->supi = Supi::Parse(yaml::GetString(config, "supi"));
+    if (yaml::HasField(config, "protectionScheme"))
+        result->protectionScheme = yaml::GetInt32(config, "protectionScheme", 0, 255);
+    if (yaml::HasField(config, "homeNetworkPublicKeyId"))
+        result->homeNetworkPublicKeyId = yaml::GetInt32(config, "homeNetworkPublicKeyId", 0, 255);
+    if (yaml::HasField(config, "homeNetworkPublicKey"))        
+        result->homeNetworkPublicKey = OctetString::FromHex(yaml::GetString(config, "homeNetworkPublicKey", 64, 64)); 
     if (yaml::HasField(config, "imei"))
         result->imei = yaml::GetString(config, "imei", 15, 15);
     if (yaml::HasField(config, "imeiSv"))
         result->imeiSv = yaml::GetString(config, "imeiSv", 16, 16);
+    if (yaml::HasField(config, "tunName"))
+        result->tunName = yaml::GetString(config, "tunName", 1, 12);
+    if (yaml::HasField(config, "tunNetmask"))
+        result->tunNetmask = yaml::GetString(config, "tunNetmask", 9, 15);
 
     yaml::AssertHasField(config, "integrity");
     yaml::AssertHasField(config, "ciphering");
@@ -246,6 +261,7 @@ static void ReadOptions(int argc, char **argv)
     opt::OptionItem itemImsi = {'i', "imsi", "Use specified IMSI number instead of provided one", "imsi"};
     opt::OptionItem itemCount = {'n', "num-of-UE", "Generate specified number of UEs starting from the given IMSI",
                                  "num"};
+    opt::OptionItem itemTempo = {'t', "tempo", "Starting delay in milliseconds for each of the UEs", "tempo"};
     opt::OptionItem itemDisableCmd = {'l', "disable-cmd", "Disable command line functionality for this instance",
                                       std::nullopt};
     opt::OptionItem itemDisableRouting = {'r', "no-routing-config",
@@ -254,6 +270,7 @@ static void ReadOptions(int argc, char **argv)
     desc.items.push_back(itemConfigFile);
     desc.items.push_back(itemImsi);
     desc.items.push_back(itemCount);
+    desc.items.push_back(itemTempo);
     desc.items.push_back(itemDisableCmd);
     desc.items.push_back(itemDisableRouting);
 
@@ -273,6 +290,11 @@ static void ReadOptions(int argc, char **argv)
     {
         g_options.count = 1;
     }
+
+    if (opt.hasFlag(itemTempo))
+        g_options.tempo = utils::ParseInt(opt.getOption(itemTempo));
+    else
+        g_options.tempo = 0;
 
     g_options.imsi = {};
     if (opt.hasFlag(itemImsi))
@@ -335,6 +357,12 @@ static nr::ue::UeConfig *GetConfigByUe(int ueIndex)
     c->imei = g_refConfig->imei;
     c->imeiSv = g_refConfig->imeiSv;
     c->supi = g_refConfig->supi;
+    c->protectionScheme = g_refConfig->protectionScheme;
+    c->homeNetworkPublicKey = g_refConfig->homeNetworkPublicKey.copy();
+    c->homeNetworkPublicKeyId = g_refConfig->homeNetworkPublicKeyId;
+    c->routingIndicator = g_refConfig->routingIndicator;
+    c->tunName = g_refConfig->tunName;
+    c->tunNetmask = g_refConfig->tunNetmask;
     c->hplmn = g_refConfig->hplmn;
     c->configuredNssai = g_refConfig->configuredNssai;
     c->defaultConfiguredNssai = g_refConfig->defaultConfiguredNssai;
@@ -493,7 +521,17 @@ int main(int argc, char **argv)
         g_cliRespTask->start();
     }
 
-    g_ueMap.invokeForeach([](const auto &ue) { ue.second->start(); });
+    if (g_options.tempo != 0)
+    {
+        g_ueMap.invokeForeach([](const auto &ue) {
+            ue.second->start();
+            std::this_thread::sleep_for(std::chrono::milliseconds(g_options.tempo));
+        });
+    }
+    else
+    {
+        g_ueMap.invokeForeach([](const auto &ue) { ue.second->start(); });
+    }
 
     while (true)
         Loop();
