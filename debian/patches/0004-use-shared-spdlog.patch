@@ -7,10 +7,10 @@ Subject: Use libspdlog-dev
  1 file changed, 4 insertions(+)
 
 diff --git a/src/utils/CMakeLists.txt b/src/utils/CMakeLists.txt
-index 8ed3b14..6b40947 100644
+index 9e4eb8a..afaa73f 100644
 --- a/src/utils/CMakeLists.txt
 +++ b/src/utils/CMakeLists.txt
-@@ -9,3 +9,7 @@ target_compile_options(utils PRIVATE -Wall -Wextra -pedantic -Wno-unused-paramet
+@@ -7,3 +7,7 @@ target_compile_options(utils PRIVATE -Wall -Wextra -pedantic -Wno-unused-paramet
  target_compile_options(utils PUBLIC -Wformat-security)
  
  target_link_libraries(utils ext)

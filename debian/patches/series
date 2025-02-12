@@ -3,6 +3,4 @@
 0003-fix-silented-format-security-warning.patch
 0004-use-shared-spdlog.patch
 0005-use-shared-yaml-cpp.patch
-0006-gtp-echo.patch
 0007-include-cstring.patch
-0008-fix-vector.patch

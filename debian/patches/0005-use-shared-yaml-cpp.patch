@@ -7,10 +7,10 @@ Subject: Use libyaml-cpp-dev
  1 file changed, 3 insertions(+)
 
 diff --git a/src/utils/CMakeLists.txt b/src/utils/CMakeLists.txt
-index 6b40947..499c051 100644
+index afaa73f..f4a7f89 100644
 --- a/src/utils/CMakeLists.txt
 +++ b/src/utils/CMakeLists.txt
-@@ -13,3 +13,6 @@ target_link_libraries(utils ext)
+@@ -11,3 +11,6 @@ target_link_libraries(utils ext)
  # Debian's libspdlog-dev
  find_package(spdlog CONFIG REQUIRED)
  target_link_libraries(utils spdlog::spdlog_header_only)

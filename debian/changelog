@@ -1,3 +1,9 @@
+ueransim (3.2.7+dfsg-1) bookworm; urgency=medium
+
+  * Update to 3.2.7
+
+ -- Louis Royer <louis.royer@irit.fr>  Wed, 12 Feb 2025 10:29:34 +0100
+
 ueransim (3.2.6+dfsg-6) bookworm; urgency=medium
 
   * Bookworm packaging (fix changelog)
